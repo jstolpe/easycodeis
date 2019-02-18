@@ -52,6 +52,12 @@ body {
 	padding: 10px;
 }
 
+.footer-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 @media screen and ( min-width: 800px ) { /* desktop */
     .background-video-element {
        display: block;

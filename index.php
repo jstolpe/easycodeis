@@ -36,5 +36,8 @@
 				</div>
 			</div>
 		</div>
+		<div class="footer-container">
+			<a href="https://github.com/jstolpe/easycodeis">View Easy, Code Is on GitHub</a>
+		</div>
 	</body>
 </html>
