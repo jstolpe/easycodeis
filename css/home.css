@@ -1,11 +1,5 @@
 @charset "utf-8";
 
-body {
-	font-family: 'Coda';
-	padding: 0px;
-	margin: 0px;
-}
-
 .background-video-container {
 	position: absolute;
 	top: 0;
@@ -56,6 +50,36 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.a-action {
+    color: #fff;
+    text-decoration: none;
+}
+
+.button-container {
+    font-size: 14px;
+    background: #77c045;
+    border-radius: 5px;
+    border: 1px solid #77c045;
+}
+
+.button-container:hover {
+    border: 1px solid #fff;
+    background: rgba( 0, 0, 0, 0.5 );
+}
+
+.button-container-pad {
+    padding: 10px;
+}
+
+#load_test {
+    color: #333;
+    cursor: pointer;
+}
+
+#load_test:hover {
+    text-decoration: underline;
 }
 
 @media screen and ( min-width: 800px ) { /* desktop */

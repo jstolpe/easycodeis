@@ -11,7 +11,30 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
 		<!-- css styles for our home page-->
+		<link href="css/global.css" rel="stylesheet" type="text/css">
 		<link href="css/home.css" rel="stylesheet" type="text/css">
+
+		<!-- jquery -->
+		<script type="text/javascript" src="js/jquery.js"></script>
+
+		<!-- include our loader overlay script -->
+		<script type="text/javascript" src="js/loader.js"></script>
+
+		<script>
+			$( function() { // do things when the document is ready
+				// initialize our loader overlay
+				loader.initialize();
+
+				$( '#load_test' ).on( 'click', function() { // on click for our load test link
+					// show our loading overlay
+					loader.showLoader();
+
+					setInterval( function() { // after 3 seconds, hide our loading overlay
+						loader.hideLoader();
+					}, 3000 );
+				} );
+			} );
+		</script>
 	</head>
 	<body>
 		<div class="background-video-container">
@@ -21,12 +44,30 @@
 			<img class="background-video-image" src="assets/background_video_image.png" />
 			<div class="background-video-overlay"></div>
 			<div class="background-video-text-overlay">
-				Easy, Code Is
+				<div>Easy, Code Is</div>
+				<div class="action-container pc-only">
+					<a class="a-action" href="signup.php">
+						<div class="button-container">
+							<div class="button-container-pad">
+								SIGN UP
+							</div>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="content">
 			<div class="content-inner">
 				<div class="content-inner-padding">
+					<div class="action-container mobile-only">
+						<a class="a-action" href="signup.php">
+							<div class="button-container">
+								<div class="button-container-pad">
+									SIGN UP
+								</div>
+							</div>
+						</a>
+					</div>
 					<h1>
 						Welcome to Easy, Code Is!
 					</h1>
@@ -37,7 +78,8 @@
 			</div>
 		</div>
 		<div class="footer-container">
-			<a href="https://github.com/jstolpe/easycodeis">View Easy, Code Is on GitHub</a>
+			<div><a class="a-default" href="https://github.com/jstolpe/easycodeis">View Easy, Code Is on GitHub</a></div>
+			<div><span id="load_test">Loading Overlay Test (lasts 3 sec)</span></div>
 		</div>
 	</body>
 </html>
