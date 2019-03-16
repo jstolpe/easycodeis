@@ -21,30 +21,44 @@
 		<script type="text/javascript" src="js/loader.js"></script>
 
 		<script>
-			$( function() {
+			$( function() { // once the document is ready, do things
 				// initialize our loader overlay
 				loader.initialize();
 
-				$( '#signup_button' ).on( 'click', function() {
+				$( '#signup_button' ).on( 'click', function() { // onclick for our signup button
+					// clear error message and red borders on signup click
 					$( '#error_message' ).html( '' );
 					$( 'input' ).removeClass( 'invalid-input' );
 
+					// assume no fields are blank
 					var allFieldsFilledIn = true;
 
-					$( 'input' ).each( function() {
-						if ( '' == $( this ).val() ) { // invalid
+					$( 'input' ).each( function() { // simple front end check, loop over inputs
+						if ( '' == $( this ).val() ) { // input is blank, add red border and set flag to false
 							$( this ).addClass( 'invalid-input ');
 							allFieldsFilledIn = false;
 						}
 					} );
 
-					if ( allFieldsFilledIn ) {
+					if ( allFieldsFilledIn ) { // all fields are filled in!
 						loader.showLoader();
 
-						// backend sign user up
-
-						window.location.href = "login.php";
-					} else {
+						$.ajax( {
+							url: 'php/process_signup.php',
+							data: $( '#signup_form' ).serialize(),
+							type: 'post',
+							dataType: 'json',
+							success: function( data ) {
+								if ( 'ok' == data.status ) {
+									loader.hideLoader();
+									window.location.href = "login.php";
+								} else if ( 'fail' == data.status ) {
+									$( '#error_message' ).html( data.message );
+									loader.hideLoader();
+								}
+							}
+						} );
+					} else { // some fields are not filled in, show error message and scroll to top of page
 						$( '#error_message' ).html( 'All fields must be filled in.' );
 						$( window ).scrollTop( 0 );
 					}
@@ -66,7 +80,8 @@
 					<div class="site-content-section-inner">
 						<div class="section-heading">Sign Up</div>
 						<form id="signup_form" name="signup_form">
-							<div id="error_message" class="error-message"></div>
+							<div id="error_message" class="error-message">
+							</div>
 							<div>
 								<div class="section-label">Email</div>
 								<div><input type="text" name="email" /></div>
