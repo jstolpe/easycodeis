@@ -53,6 +53,13 @@
 							</div>
 						</div>
 					</a>
+					<a class="a-action" href="login.php">
+						<div class="button-container">
+							<div class="button-container-pad">
+								LOGIN
+							</div>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -64,6 +71,13 @@
 							<div class="button-container">
 								<div class="button-container-pad">
 									SIGN UP
+								</div>
+							</div>
+						</a>
+						<a class="a-action" href="login.php">
+							<div class="button-container default-margin-top">
+								<div class="button-container-pad">
+									LOGIN
 								</div>
 							</div>
 						</a>

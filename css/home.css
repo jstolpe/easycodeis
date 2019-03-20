@@ -73,6 +73,10 @@
     padding: 10px;
 }
 
+.default-margin-top {
+    margin-top: 10px;
+}
+
 #load_test {
     color: #333;
     cursor: pointer;
@@ -102,6 +106,10 @@
 		margin: 100vh 0 0 0;
 		width: 100%;
 	}
+
+    .button-container {
+        display: inline-block;
+    }
 }
 
 @media screen and ( max-width: 800px ) { /* mobile */
@@ -125,4 +133,8 @@
     .background-video-text-overlay {
 		font-size: 30px;
 	}
+
+    .content-inner {
+        margin-top: 0px;
+    }
 }
