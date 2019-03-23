@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	// include config
 	include 'C:\wamp\easycodeis_includes\config.php';
 
@@ -125,4 +127,19 @@
 
 		// return hash
 		return $hash;
+	}
+
+	/**
+	 * Check if user is logged in
+	 *
+	 * @param void
+	 *
+	 * @return boolean
+	 */
+	function isLoggedIn() {
+		if ( ( isset( $_SESSION['is_logged_in'] ) && $_SESSION['is_logged_in'] ) && ( isset( $_SESSION['user_info'] ) && $_SESSION['user_info'] ) ) { // check session variables, user is logged in
+			return true;
+		} else { // user is not logged in
+			return false;
+		}
 	}

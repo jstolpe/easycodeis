@@ -1,3 +1,6 @@
+<?php
+	include 'php/functions.php';
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,27 +49,9 @@
 			<div class="background-video-text-overlay">
 				<div>Easy, Code Is</div>
 				<div class="action-container pc-only">
-					<a class="a-action" href="signup.php">
-						<div class="button-container">
-							<div class="button-container-pad">
-								SIGN UP
-							</div>
-						</div>
-					</a>
-					<a class="a-action" href="login.php">
-						<div class="button-container">
-							<div class="button-container-pad">
-								LOGIN
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="content">
-			<div class="content-inner">
-				<div class="content-inner-padding">
-					<div class="action-container mobile-only">
+					<?php if ( isLoggedIn() ) : ?>
+						<div class="logged-in-text">Logged in as <b><?php echo $_SESSION['user_info']['first_name']; ?></b></div>
+					<?php else : ?>
 						<a class="a-action" href="signup.php">
 							<div class="button-container">
 								<div class="button-container-pad">
@@ -75,12 +60,38 @@
 							</div>
 						</a>
 						<a class="a-action" href="login.php">
-							<div class="button-container default-margin-top">
+							<div class="button-container">
 								<div class="button-container-pad">
 									LOGIN
 								</div>
 							</div>
 						</a>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="content-inner">
+				<div class="content-inner-padding">
+					<div class="action-container mobile-only">
+						<?php if ( isLoggedIn() ) : ?>
+							<div class="logged-in-text">Logged in as <b><?php echo $_SESSION['user_info']['first_name']; ?></b></div>
+						<?php else : ?>
+							<a class="a-action" href="signup.php">
+								<div class="button-container">
+									<div class="button-container-pad">
+										SIGN UP
+									</div>
+								</div>
+							</a>
+							<a class="a-action" href="login.php">
+								<div class="button-container default-margin-top">
+									<div class="button-container-pad">
+										LOGIN
+									</div>
+								</div>
+							</a>
+						<?php endif; ?>
 					</div>
 					<h1>
 						Welcome to Easy, Code Is!

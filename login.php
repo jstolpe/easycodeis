@@ -44,6 +44,21 @@
 						loader.showLoader();
 
 						// server side login
+						$.ajax( {
+							url: 'php/process_login.php',
+							data: $( '#login_form' ).serialize(),
+							type: 'post',
+							dataType: 'json',
+							success: function( data ) {
+								if ( 'ok' == data.status ) {
+									loader.hideLoader();
+									window.location.href = "index.php";
+								} else if ( 'fail' == data.status ) {
+									$( '#error_message' ).html( data.message );
+									loader.hideLoader();
+								}
+							}
+						} );
 					} else { // some fields are not filled in, show error message and scroll to top of page
 						$( '#error_message' ).html( 'All fields must be filled in.' );
 						$( window ).scrollTop( 0 );
