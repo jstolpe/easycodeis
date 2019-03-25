@@ -1,3 +1,10 @@
+<?php
+	// include functions
+	include 'php/functions.php';
+
+	// only if you are logged out can you view the signup page
+	loggedInRedirect();
+?>
 <!DOCTYPE html>
 <html>
 	<head>

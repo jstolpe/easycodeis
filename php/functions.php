@@ -2,7 +2,11 @@
 	session_start();
 
 	// include config
-	include 'C:\wamp\easycodeis_includes\config.php';
+	if ( 'easycodeis.com' == $_SERVER['HTTP_HOST'] ) { // on our live server
+		include '/home/easycodeis/easycodeis_includes/config.php';
+	} else { // localhost
+		include 'C:\wamp\easycodeis_includes\config.php';
+	}
 
 	/**
 	 * Get DB connection
@@ -141,5 +145,43 @@
 			return true;
 		} else { // user is not logged in
 			return false;
+		}
+	}
+
+	/**
+	 * If user is logged in, redirect to homepage
+	 *
+	 * @param void
+	 *
+	 * @return boolean
+	 */
+	function loggedInRedirect() {
+		if ( isLoggedIn() ) { // user is logged in
+			// send them to the home page
+			header( 'location: index.php' );
+		}
+	}
+
+	if ( ! function_exists( 'password_verify' ) ) { // if version of php does not have password_verify function we need to define it
+		/**
+		 * password_verify()
+		 *
+		 * @link	http://php.net/password_verify
+		 * @param	string	$password
+		 * @param	string	$hash
+		 * @return	bool
+		 */
+		function password_verify( $password, $hash ) {
+			if ( strlen( $hash ) !== 60 OR strlen($password = crypt($password, $hash)) !== 60) {
+				return FALSE;
+			}
+
+			$compare = 0;
+
+			for ( $i = 0; $i < 60; $i++ ) {
+				$compare |= ( ord( $password[$i] ) ^ ord( $hash[$i] ) );
+			}
+
+			return ( $compare === 0 );
 		}
 	}

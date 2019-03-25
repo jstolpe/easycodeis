@@ -36,6 +36,22 @@
 						loader.hideLoader();
 					}, 3000 );
 				} );
+
+				$( '#logout_link' ).on( 'click', function() { // on click for our logout link
+					// show our loading overlay
+					loader.showLoader();
+
+					// server side logout
+					$.ajax( {
+						url: 'php/process_logout.php',
+						type: 'post',
+						dataType: 'json',
+						success: function( data ) {
+							loader.hideLoader();
+							window.location.href = "index.php";
+						}
+					} );
+				} );
 			} );
 		</script>
 	</head>
@@ -105,6 +121,9 @@
 		<div class="footer-container">
 			<div><a class="a-default" href="https://github.com/jstolpe/easycodeis">View Easy, Code Is on GitHub</a></div>
 			<div><span id="load_test">Loading Overlay Test (lasts 3 sec)</span></div>
+			<?php if ( isLoggedIn() ) : ?>
+				<div id="logout_link" class="a-default">Logout</div>
+			<?php endif; ?>
 		</div>
 	</body>
 </html>
