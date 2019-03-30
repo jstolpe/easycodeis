@@ -33,45 +33,55 @@
 				loader.initialize();
 
 				$( '#login_button' ).on( 'click', function() { // onclick for our login button
-					// clear error message and red borders on signup click
-					$( '#error_message' ).html( '' );
-					$( 'input' ).removeClass( 'invalid-input' );
+					processLogin();
+				} );
 
-					// assume no fields are blank
-					var allFieldsFilledIn = true;
-
-					$( 'input' ).each( function() { // simple front end check, loop over inputs
-						if ( '' == $( this ).val() ) { // input is blank, add red border and set flag to false
-							$( this ).addClass( 'invalid-input ');
-							allFieldsFilledIn = false;
-						}
-					} );
-
-					if ( allFieldsFilledIn ) { // all fields are filled in!
-						loader.showLoader();
-
-						// server side login
-						$.ajax( {
-							url: 'php/process_login.php',
-							data: $( '#login_form' ).serialize(),
-							type: 'post',
-							dataType: 'json',
-							success: function( data ) {
-								if ( 'ok' == data.status ) {
-									loader.hideLoader();
-									window.location.href = "index.php";
-								} else if ( 'fail' == data.status ) {
-									$( '#error_message' ).html( data.message );
-									loader.hideLoader();
-								}
-							}
-						} );
-					} else { // some fields are not filled in, show error message and scroll to top of page
-						$( '#error_message' ).html( 'All fields must be filled in.' );
-						$( window ).scrollTop( 0 );
+				$( '.form-input' ).keyup( function( e ) {
+					if ( e.keyCode == 13 ) { // our enter key
+						processLogin();
 					}
 				} );
 			} );
+
+			function processLogin() {
+				// clear error message and red borders on signup click
+				$( '#error_message' ).html( '' );
+				$( 'input' ).removeClass( 'invalid-input' );
+
+				// assume no fields are blank
+				var allFieldsFilledIn = true;
+
+				$( 'input' ).each( function() { // simple front end check, loop over inputs
+					if ( '' == $( this ).val() ) { // input is blank, add red border and set flag to false
+						$( this ).addClass( 'invalid-input ');
+						allFieldsFilledIn = false;
+					}
+				} );
+
+				if ( allFieldsFilledIn ) { // all fields are filled in!
+					loader.showLoader();
+
+					// server side login
+					$.ajax( {
+						url: 'php/process_login.php',
+						data: $( '#login_form' ).serialize(),
+						type: 'post',
+						dataType: 'json',
+						success: function( data ) {
+							if ( 'ok' == data.status ) {
+								loader.hideLoader();
+								window.location.href = "index.php";
+							} else if ( 'fail' == data.status ) {
+								$( '#error_message' ).html( data.message );
+								loader.hideLoader();
+							}
+						}
+					} );
+				} else { // some fields are not filled in, show error message and scroll to top of page
+					$( '#error_message' ).html( 'All fields must be filled in.' );
+					$( window ).scrollTop( 0 );
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -92,11 +102,11 @@
 							</div>
 							<div>
 								<div class="section-label">Email</div>
-								<div><input type="text" name="email" /></div>
+								<div><input class="form-input" type="text" name="email" /></div>
 							</div>
 							<div class="section-mid-container">
 								<div class="section-label">Password</div>
-								<div><input type="password" name="password" /></div>
+								<div><input class="form-input" type="password" name="password" /></div>
 							</div>
 						</form>
 						<div class="section-action-container">

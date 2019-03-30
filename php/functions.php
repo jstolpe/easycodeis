@@ -5,7 +5,7 @@
 	if ( 'easycodeis.com' == $_SERVER['HTTP_HOST'] ) { // on our live server
 		include '/home/easycodeis/easycodeis_includes/config.php';
 	} else { // localhost
-		include 'C:\wamp\easycodeis_includes\config.php';
+		include 'C:\wamp64\easycodeis_includes\config.php';
 	}
 
 	/**
