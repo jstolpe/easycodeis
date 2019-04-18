@@ -1,0 +1,8 @@
+RewriteEngine on
+
+<if "%{HTTP_HOST} = 'easycodeis.com' || %{HTTP_HOST} = 'www.easycodeis.com'">
+	RewriteCond %{HTTP_HOST} ^www\. [OR]
+	RewriteCond %{HTTPS} off
+	RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$
+	RewriteRule ^ https://%1%{REQUEST_URI} [NE,L,R=301]
+</if>
