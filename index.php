@@ -122,6 +122,9 @@
 			<div><a class="a-default" href="https://github.com/jstolpe/easycodeis">View Easy, Code Is on GitHub</a></div>
 			<div><span id="load_test">Loading Overlay Test (lasts 3 sec)</span></div>
 			<?php if ( isLoggedIn() ) : ?>
+				<div>
+					<a class="a-default" href="myaccount.php">My Account</a>
+				</div>
 				<div id="logout_link" class="a-default">Logout</div>
 			<?php endif; ?>
 		</div>

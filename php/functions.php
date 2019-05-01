@@ -25,6 +25,81 @@
 	}
 
 	/**
+	 * Update user
+	 *
+	 * @param array $info
+	 *
+	 * @return void
+	 */
+	function updateUserInfo( $info ) {
+		// get database connection
+		$databaseConnection = getDatabaseConnection();
+
+		// create our sql statment adding in password only if change password was checked
+		$statement = $databaseConnection->prepare( '
+			UPDATE
+				users
+			SET
+				email = :email,
+				first_name = :first_name,
+				last_name = :last_name
+				' . ( isset( $info['change_password'] ) ? ', password = :password ' : '' ) . '
+			WHERE
+				key_value = :key_value
+		' );
+
+		$params = array( //params 
+			'email' => trim( $info['email'] ),
+			'first_name' => trim( $info['first_name'] ),
+			'last_name' => trim( $info['last_name'] ),
+		);
+
+		if ( isset( $info['change_password'] ) ) { // add password and key value if password checkbox is checked
+			$params['password'] = hashedPassword( $info['password'] );
+			$params['key_value'] = $info['key_value'];
+		} else { // only add key value, change password checkbox was not checked
+			$params['key_value'] = $info['key_value'];
+		}
+
+		// run the sql statement
+		$statement->execute( $params );
+	}
+
+	/**
+	 * Get row from a table with a value
+	 *
+	 * @param string $tableName
+	 * @param string $column
+	 * @param string $value
+	 *
+	 * @return array $info
+	 */
+	function getRowWithValue( $tableName, $column, $value ) {
+		// get database connection
+		$databaseConnection = getDatabaseConnection();
+
+		// create our sql statment
+		$statement = $databaseConnection->prepare( '
+			SELECT
+				*
+			FROM
+				' . $tableName . '
+			WHERE
+				' . $column . ' = :' . $column
+		);
+
+		// execute sql with actual values
+		$statement->setFetchMode( PDO::FETCH_ASSOC );
+		$statement->execute( array(
+			$column => trim( $value )
+		) );
+
+		// get and return user
+		$user = $statement->fetch();
+		return $user;
+	}
+
+	/**
 	 * Get user with email address
 	 *
 	 * @param array $email
