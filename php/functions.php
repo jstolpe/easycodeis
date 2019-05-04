@@ -1,6 +1,8 @@
 <?php
 	session_start();
 
+	define( 'USER_LEVEL_ADMIN', '1' );
+
 	// include config
 	if ( 'easycodeis.com' == $_SERVER['HTTP_HOST'] ) { // on our live server
 		include '/home/easycodeis/easycodeis_includes/config.php';
@@ -234,6 +236,14 @@
 		if ( isLoggedIn() ) { // user is logged in
 			// send them to the home page
 			header( 'location: index.php' );
+		}
+	}
+
+	function isAdmin() {
+		if ( isset( $_SESSION['user_info'] ) && $_SESSION['user_info'] && USER_LEVEL_ADMIN == $_SESSION['user_info']['user_level'] ) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
