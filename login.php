@@ -1,6 +1,6 @@
 <?php
-	// include functions
-	include 'php/functions.php';
+	// load up global things
+	include_once 'autoloader.php';
 
 	// only if you are logged out can you view the login page
 	loggedInRedirect();

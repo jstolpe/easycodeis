@@ -1,5 +1,6 @@
 <?php
-	include 'php/functions.php';
+	// load up global things
+	include_once 'autoloader.php';
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,6 +1,6 @@
 <?php
-	// include fucntions to use!
-	include 'functions.php';
+	// load up global things
+	include_once '../autoloader.php';
 
 	// check for user with email address
 	$userInfo = getUserWithEmailAddress( trim( $_POST['email'] ) );

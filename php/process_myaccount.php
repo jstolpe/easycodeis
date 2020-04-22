@@ -1,6 +1,6 @@
 <?php
-	// include fucntions to use!
-	include 'functions.php';
+	// load up global things
+	include_once '../autoloader.php';
 
 	// get user info with key and get user info with email address
 	$userInfo = getRowWithValue( 'users', 'key_value', $_SESSION['user_info']['key_value'] );
