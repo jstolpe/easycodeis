@@ -123,6 +123,40 @@
 	}
 
 	/**
+	 * Update a colum with a value in a table by id
+	 *
+	 * @param string $tableName
+	 * @param string $column
+	 * @param string $value
+	 * @param string $id
+	 *
+	 * @return void
+	 */
+	function updateRow( $tableName, $column, $value, $id ) {
+		// get database connection
+		$databaseConnection = getDatabaseConnection();
+
+		// create our sql statment
+		$statement = $databaseConnection->prepare( '
+			UPDATE
+				' . $tableName . '
+			SET
+				' . $column . ' = :value
+			WHERE
+				id = :id
+		' );
+
+		// set our parameters to use with the statment
+		$params = array(
+			'value' => trim( $value ),
+			'id' => trim( $id )
+		);
+
+		// run the query
+		$statement->execute( $params );
+	}
+
+	/**
 	 * Sign a user up
 	 *
 	 * @param array $info
@@ -141,14 +175,18 @@
 					first_name,
 					last_name,
 					password,
-					key_value
+					key_value,
+					fb_user_id,
+					fb_access_token
 				)
 			VALUES (
 				:email,
 				:first_name,
 				:last_name,
 				:password,
-				:key_value
+				:key_value,
+				:fb_user_id,
+				:fb_access_token
 			)
 		' );
 
@@ -157,8 +195,10 @@
 			'email' => trim( $info['email'] ),
 			'first_name' => trim( $info['first_name'] ),
 			'last_name' => trim( $info['last_name'] ),
-			'password' => hashedPassword( $info['password'] ),
+			'password' => isset( $info['password'] ) ? hashedPassword( $info['password'] ) : '',
 			'key_value' => newKey(),
+			'fb_user_id' => isset( $info['id'] ) ? $info['id'] : '',
+			'fb_access_token' => isset( $info['fb_access_token'] ) ? $info['fb_access_token'] : '',
 		) );
 
 		// return id of inserted row

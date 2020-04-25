@@ -2,6 +2,11 @@
 	// load up global things
 	include_once 'autoloader.php';
 
+	if ( isset( $_GET['state'] ) && FB_APP_STATE == $_GET['state'] ) { // coming from facebook
+		// try and log the user in with $_GET vars from facebook 
+		$fbLogin = tryAndLoginWithFacebook( $_GET );
+	}
+
 	// only if you are logged out can you view the login page
 	loggedInRedirect();
 ?>
@@ -46,6 +51,7 @@
 			function processLogin() {
 				// clear error message and red borders on signup click
 				$( '#error_message' ).html( '' );
+				$( '#error_message_fb_php' ).html( '' );
 				$( 'input' ).removeClass( 'invalid-input' );
 
 				// assume no fields are blank
@@ -99,10 +105,17 @@
 						<div class="section-heading">Login</div>
 						<form id="login_form" name="login_form">
 							<div id="error_message" class="error-message">
+								<?php if ( isset( $_SESSION['eci_login_required_to_connect_facebook'] ) && $_SESSION['eci_login_required_to_connect_facebook'] ) : ?>
+									<div style="margin-bottom:10px;">
+										An account already exists with that email address. To connect your Facebook account, enter your password.
+									</div>
+								<?php endif; ?>
 							</div>
 							<div>
 								<div class="section-label">Email</div>
-								<div><input class="form-input" type="text" name="email" /></div>
+								<div>
+									<input class="form-input" type="text" name="email" value="<?php echo isset( $_SESSION['fb_user_info']['email'] ) ? $_SESSION['fb_user_info']['email'] : ''; ?>" />
+								</div>
 							</div>
 							<div class="section-mid-container">
 								<div class="section-label">Password</div>
@@ -113,6 +126,23 @@
 							<div class="section-button-container" id="login_button">
 								<div>Login</div>
 							</div>
+						</div>
+						<div class="section-action-container">
+							- OR -
+						</div>
+						<div class="section-action-container">
+							<div id="error_message_fb_php" class="error-message">
+								<?php if ( !empty( $fbLogin['status'] ) && 'fail' == $fbLogin['status'] ) : // we have a facebook error to display ?>
+									<?php echo $fbLogin['message']; ?>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="section-action-container">
+							<a href="<?php echo getFacebookLoginUrl(); ?>" class="a-fb">
+								<div class="fb-button-container">
+									Login with Facebook (PHP)
+								</div>
+							</a>
 						</div>
 						<div class="section-footer-container">
 							Not a member? <a class="a-default" href="signup.php">Sign Up</a>

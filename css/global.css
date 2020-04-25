@@ -17,6 +17,21 @@ body {
     cursor: pointer;
 }
 
+.a-fb {
+	text-decoration: none;
+}
+
+.fb-button-container {
+	padding: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background: #3d6ad6;
+}
+
+.fb-button-container:hover {
+	background: #1D3C78;
+}
+
 .loading-overlay {
 	display: none;
 	background: rgba( 26, 26, 26, 0.7 );

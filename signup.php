@@ -125,6 +125,16 @@
 								<div>Sign Up</div>
 							</div>
 						</div>
+						<div class="section-action-container">
+							- OR -
+						</div>
+						<div class="section-action-container">
+							<a href="<?php echo getFacebookLoginUrl(); ?>" class="a-fb">
+								<div class="fb-button-container">
+									Login with Facebook (PHP)
+								</div>
+							</a>
+						</div>
 						<div class="section-footer-container">
 							Already a member? <a class="a-default" href="login.php">Login</a>
 						</div>
