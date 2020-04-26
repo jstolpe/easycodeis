@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2019 at 04:04 PM
+-- Generation Time: Apr 26, 2020 at 03:41 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `key_value` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `user_level` int(11) NOT NULL DEFAULT '0',
+  `fb_user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `fb_access_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 COMMIT;
