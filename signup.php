@@ -2,6 +2,10 @@
 	// load up global things
 	include_once 'autoloader.php';
 
+	// get twitter login url
+	$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET );
+	$twitterPreLoginData = $eciTwitterApi->getDataForLogin( TWITTER_CALLBACK_URL );
+
 	// only if you are logged out can you view the signup page
 	loggedInRedirect();
 ?>
@@ -132,6 +136,22 @@
 							<a href="<?php echo getFacebookLoginUrl(); ?>" class="a-fb">
 								<div class="fb-button-container">
 									Login with Facebook (PHP)
+								</div>
+							</a>
+						</div>
+						<div class="section-action-container">
+							<div id="error_message_twitter_php" class="error-message">
+								<?php if ( 'fail' == $twitterPreLoginData['status'] ) : ?>
+									<div>
+										<?php echo $twitterPreLoginData['message']; ?>
+									</div>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="section-action-container">
+							<a href="<?php echo $twitterPreLoginData['twitter_login_url'] ;?>" class="a-tw">
+								<div class="tw-button-container">
+									Login with Twitter (PHP)
 								</div>
 							</a>
 						</div>

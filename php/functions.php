@@ -177,7 +177,10 @@
 					password,
 					key_value,
 					fb_user_id,
-					fb_access_token
+					fb_access_token,
+					tw_user_id,
+					oauth_token,
+					oauth_token_secret
 				)
 			VALUES (
 				:email,
@@ -186,7 +189,10 @@
 				:password,
 				:key_value,
 				:fb_user_id,
-				:fb_access_token
+				:fb_access_token,
+				:tw_user_id,
+				:oauth_token,
+				:oauth_token_secret
 			)
 		' );
 
@@ -199,6 +205,9 @@
 			'key_value' => newKey(),
 			'fb_user_id' => isset( $info['id'] ) ? $info['id'] : '',
 			'fb_access_token' => isset( $info['fb_access_token'] ) ? $info['fb_access_token'] : '',
+			'tw_user_id' => isset( $info['tw_user_id'] ) ? $info['tw_user_id'] : '',
+			'oauth_token' => isset( $info['oauth_token'] ) ? $info['oauth_token'] : '',
+			'oauth_token_secret' => isset( $info['oauth_token_secret'] ) ? $info['oauth_token_secret'] : '',
 		) );
 
 		// return id of inserted row

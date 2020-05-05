@@ -144,7 +144,7 @@
 					// check for user with email
 					$userInfoWithEmail = getRowWithValue( 'users', 'email', $fbUserInfo['fb_response']['email'] );
 
-					if ( $userInfoWithId ) { // user has logged in with facebook before so we found them
+					if ( $userInfoWithId || ( $userInfoWithEmail && !$userInfoWithEmail['password'] ) ) { // user has logged in with facebook before so we found them
 						// update user
 						updateRow( 'users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfoWithId['id'] );
 						$userInfo = getRowWithValue( 'users', 'id', $userInfoWithId['id'] );

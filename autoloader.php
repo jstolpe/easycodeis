@@ -18,3 +18,6 @@
 
 	// include facebook api functions
 	include_once __DIR__  . '/php/facebook_api.php';
+
+	// include twitter api functions
+	include_once __DIR__  . '/php/twitter_api.php';

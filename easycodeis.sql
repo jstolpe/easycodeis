@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 26, 2020 at 03:41 AM
+-- Generation Time: May 05, 2020 at 03:10 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `easycodeis`
 --
+CREATE DATABASE IF NOT EXISTS `easycodeis` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `easycodeis`;
 
 -- --------------------------------------------------------
 
@@ -40,6 +42,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_level` int(11) NOT NULL DEFAULT '0',
   `fb_user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `fb_access_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `tw_user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `oauth_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `oauth_token_secret` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 COMMIT;

@@ -21,6 +21,10 @@ body {
 	text-decoration: none;
 }
 
+.a-tw {
+	text-decoration: none;
+}
+
 .fb-button-container {
 	padding: 10px;
 	color: #fff;
@@ -30,6 +34,17 @@ body {
 
 .fb-button-container:hover {
 	background: #1D3C78;
+}
+
+.tw-button-container {
+	padding: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background: #1da1ff;
+}
+
+.tw-button-container:hover {
+	background: #1a90da;
 }
 
 .loading-overlay {

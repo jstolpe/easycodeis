@@ -23,6 +23,18 @@
 			updateRow( 'users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfo['id'] );
 		}
 
+		if ( isset( $_SESSION['oauth_token'] ) ) { // if we have an access token save it
+			updateRow( 'users', 'oauth_token', $_SESSION['oauth_token'], $userInfo['id'] );
+		}
+
+		if ( isset( $_SESSION['oauth_token_secret'] ) ) { // if we have an access token secret save it
+			updateRow( 'users', 'oauth_token_secret', $_SESSION['oauth_token_secret'], $userInfo['id'] );
+		}
+
+		if ( isset( $_SESSION['tw_user_info']['id'] ) ) { // if we have an twitter user id save it
+			updateRow( 'users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userInfo['id'] );
+		}
+
  		// save info to php session
 		$_SESSION['is_logged_in'] = true;
 		$_SESSION['user_info'] = $userInfo;
