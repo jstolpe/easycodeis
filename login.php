@@ -7,18 +7,25 @@
 		$fbLogin = tryAndLoginWithFacebook( $_GET );
 	}
 
-	if ( isset( $_GET['oauth_token'] ) && isset( $_GET['oauth_verifier'] ) && isset( $_SESSION['request_oauth_token'] ) && $_SESSION['request_oauth_token'] == $_GET['oauth_token'] ) {
+	if ( isset( $_GET['oauth_token'] ) && isset( $_GET['oauth_verifier'] ) && isset( $_SESSION['request_oauth_token'] ) && $_SESSION['request_oauth_token'] == $_GET['oauth_token'] ) { // coming from twitter and not authorized
+		// twitter login data, instantiate new twitter api and get twitter login url
 		$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, $_SESSION['request_oauth_token'], $_SESSION['request_oauth_token_secret'] );
+		
+		// get access token
 		$twitterAccessToken = $eciTwitterApi->getAccessToken( $_GET['oauth_verifier'] );
 
-		$_SESSION['oauth_token'] = !empty( $twitterAccessToken['api_data']['oauth_token'] ) ?  $twitterAccessToken['api_data']['oauth_token'] : '';
+		// set session
+		$_SESSION['oauth_token'] = !empty( $twitterAccessToken['api_data']['oauth_token'] ) ?  $twitterAccessToken['api_data']['oauth_token'] : '';		
 		$_SESSION['oauth_token_secret'] = !empty( $twitterAccessToken['api_data']['oauth_token_secret'] ) ? $twitterAccessToken['api_data']['oauth_token_secret'] : '';
 
+		// twitter login data, instantiate new twitter api and get twitter login url
 		$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret'] );
 
+		// get user info
 		$twitterLogin = $eciTwitterApi->tryAndLoginWithTwitter();
 	}
 
+	// twitter login data, instantiate new twitter api and get twitter login url
 	$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET );
 	$twitterPreLoginData = $eciTwitterApi->getDataForLogin( TWITTER_CALLBACK_URL );
 
@@ -121,12 +128,12 @@
 						<div class="section-heading">Login</div>
 						<form id="login_form" name="login_form">
 							<div id="error_message" class="error-message">
-								<?php if ( isset( $_SESSION['eci_login_required_to_connect_facebook'] ) && $_SESSION['eci_login_required_to_connect_facebook'] ) : ?>
+								<?php if ( isset( $_SESSION['eci_login_required_to_connect_facebook'] ) && $_SESSION['eci_login_required_to_connect_facebook'] ) : // enter password to connect account ?>
 									<div style="margin-bottom:10px;">
 										An account already exists with that email address. To connect your Facebook account, enter your password.
 									</div>
 								<?php endif; ?>
-								<?php if ( isset( $_SESSION['eci_login_required_to_connect_twitter'] ) && $_SESSION['eci_login_required_to_connect_twitter'] ) : ?>
+								<?php if ( isset( $_SESSION['eci_login_required_to_connect_twitter'] ) && $_SESSION['eci_login_required_to_connect_twitter'] ) : // enter password to connect account ?>
 									<div style="margin-bottom:10px;">
 										An account already exists with that email address. To connect your Twitter account, enter your password.
 									</div>
@@ -135,11 +142,11 @@
 							<div>
 								<div class="section-label">Email</div>
 								<div>
-									<?php if ( isset( $_SESSION['fb_user_info']['email'] ) ? $_SESSION['fb_user_info']['email'] : '' ) : ?>
+									<?php if ( isset( $_SESSION['fb_user_info']['email'] ) ? $_SESSION['fb_user_info']['email'] : '' ) : // pre populate with facebook email ?>
 										<?php $inputEmail = $_SESSION['fb_user_info']['email']; ?>
-									<?php elseif ( isset( $_SESSION['tw_user_info']['email'] ) ? $_SESSION['tw_user_info']['email'] : '' ) : ?>
+									<?php elseif ( isset( $_SESSION['tw_user_info']['email'] ) ? $_SESSION['tw_user_info']['email'] : '' ) : // pre populate with twitter email ?>
 										<?php $inputEmail = $_SESSION['tw_user_info']['email']; ?>
-									<?php else : ?>
+									<?php else : // no pre populating ?>
 										<?php $inputEmail = ''; ?>
 									<?php endif; ?>
 									<input class="form-input" type="text" name="email" value="<?php echo $inputEmail; ?>" />
@@ -174,7 +181,7 @@
 						</div>
 						<div class="section-action-container">
 							<div id="error_message_twitter_php" class="error-message">
-								<?php if ( 'fail' == $twitterPreLoginData['status'] ) : ?>
+								<?php if ( 'fail' == $twitterPreLoginData['status'] ) : // twitter fail ?>
 									<div>
 										<?php echo $twitterPreLoginData['message']; ?>
 									</div>
