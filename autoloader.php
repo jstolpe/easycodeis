@@ -21,3 +21,6 @@
 
 	// include twitter api functions
 	include_once __DIR__  . '/php/twitter_api.php';
+
+	// include twitch api functions
+	include_once __DIR__  . '/php/twitch_api.php';

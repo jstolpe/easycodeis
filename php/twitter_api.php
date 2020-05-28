@@ -11,7 +11,7 @@
 		const TWITTER_API_VERSION = '1.1';
 
 		/**
-		 * @var api version
+		 * @var api domain
 		 */
 		const TWITTER_API_DOMAIN = 'https://api.twitter.com/';
 
@@ -378,7 +378,7 @@
 		 *
 		 * @param void
 		 *
-		 * @return string
+		 * @return array
 		 */
 		public function tryAndLoginWithTwitter() {
 			// get user info

@@ -25,6 +25,21 @@ body {
 	text-decoration: none;
 }
 
+.a-twitch {
+	text-decoration: none;
+}
+
+.twitch-button-container {
+	padding: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background: #9147ff;
+}
+
+.twitch-button-container:hover {
+	background: #772ce8;
+}
+
 .fb-button-container {
 	padding: 10px;
 	color: #fff;

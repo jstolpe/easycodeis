@@ -35,6 +35,12 @@
 			updateRow( 'users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userInfo['id'] );
 		}
 
+		if ( isset( $_SESSION['twitch_user_info'] ) ) { // if we have an twitch info save it
+			updateRow( 'users', 'twitch_user_id', $_SESSION['twitch_user_info']['id'], $userInfo['id'] );
+			updateRow( 'users', 'twitch_access_token', $_SESSION['twitch_user_info']['access_token'], $userInfo['id'] );
+			updateRow( 'users', 'twitch_refresh_token', $_SESSION['twitch_user_info']['refresh_token'], $userInfo['id'] );
+		}
+
  		// save info to php session
 		$_SESSION['is_logged_in'] = true;
 		$_SESSION['user_info'] = $userInfo;

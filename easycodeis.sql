@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 05, 2020 at 03:10 AM
+-- Generation Time: May 28, 2020 at 04:15 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -45,6 +45,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `tw_user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `oauth_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `oauth_token_secret` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `twitch_user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `twitch_access_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `twitch_refresh_token` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 COMMIT;

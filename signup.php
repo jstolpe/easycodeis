@@ -6,6 +6,10 @@
 	$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET );
 	$twitterPreLoginData = $eciTwitterApi->getDataForLogin( TWITTER_CALLBACK_URL );
 
+	// get twitch login url
+	$eciTwitchApi = new eciTwitchApi( TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET );
+	$twitchLoginUrl = $eciTwitchApi->getLoginUrl( TWITCH_REDIRECT_URI );
+
 	// only if you are logged out can you view the signup page
 	loggedInRedirect();
 ?>
@@ -152,6 +156,13 @@
 							<a href="<?php echo $twitterPreLoginData['twitter_login_url'] ;?>" class="a-tw">
 								<div class="tw-button-container">
 									Login with Twitter (PHP)
+								</div>
+							</a>
+						</div>
+						<div class="section-action-container">
+							<a href="<?php echo $twitchLoginUrl; ?>" class="a-twitch">
+								<div class="twitch-button-container">
+									Login with Twitch (PHP)
 								</div>
 							</a>
 						</div>

@@ -29,6 +29,18 @@
 	$eciTwitterApi = new eciTwitterApi( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET );
 	$twitterPreLoginData = $eciTwitterApi->getDataForLogin( TWITTER_CALLBACK_URL );
 
+	if ( isset( $_GET['code'] ) && isset( $_GET['state'] ) && $_GET['state'] == $_SESSION['twitch_state'] ) { // user is coming from twitch
+		// instantiate new twitch class
+		$eciTwitchApi = new eciTwitchApi( TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET );
+
+		// try and log the user in with twitch
+		$twitchLogin = $eciTwitchApi->tryAndLoginWithTwitch( $_GET['code'], TWITCH_REDIRECT_URI );
+	}
+
+	// get twitch login url
+	$eciTwitchApi = new eciTwitchApi( TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET );
+	$twitchLoginUrl = $eciTwitchApi->getLoginUrl( TWITCH_REDIRECT_URI );
+
 	// only if you are logged out can you view the login page
 	loggedInRedirect();
 ?>
@@ -75,6 +87,7 @@
 				$( '#error_message' ).html( '' );
 				$( '#error_message_fb_php' ).html( '' );
 				$( '#error_message_twitter_php' ).html( '' );
+				$( '#error_message_twitch_php' ).html( '' );
 				$( 'input' ).removeClass( 'invalid-input' );
 
 				// assume no fields are blank
@@ -138,6 +151,11 @@
 										An account already exists with that email address. To connect your Twitter account, enter your password.
 									</div>
 								<?php endif; ?>
+								<?php if ( isset( $_SESSION['eci_login_required_to_connect_twitch'] ) && $_SESSION['eci_login_required_to_connect_twitch'] ) : // enter password to connect account ?>
+									<div style="margin-bottom:10px;">
+										An account already exists with that email address. To connect your Twitch account, enter your password.
+									</div>
+								<?php endif; ?>
 							</div>
 							<div>
 								<div class="section-label">Email</div>
@@ -146,7 +164,9 @@
 										<?php $inputEmail = $_SESSION['fb_user_info']['email']; ?>
 									<?php elseif ( isset( $_SESSION['tw_user_info']['email'] ) ? $_SESSION['tw_user_info']['email'] : '' ) : // pre populate with twitter email ?>
 										<?php $inputEmail = $_SESSION['tw_user_info']['email']; ?>
-									<?php else : // no pre populating ?>
+									<?php elseif ( isset( $_SESSION['twitch_user_info']['email'] ) && $_SESSION['twitch_user_info']['email'] ) : ?>
+										<?php $inputEmail = $_SESSION['twitch_user_info']['email']; ?>
+									<?php else : ?>
 										<?php $inputEmail = ''; ?>
 									<?php endif; ?>
 									<input class="form-input" type="text" name="email" value="<?php echo $inputEmail; ?>" />
@@ -192,6 +212,22 @@
 							<a href="<?php echo $twitterPreLoginData['twitter_login_url'] ;?>" class="a-tw">
 								<div class="tw-button-container">
 									Login with Twitter (PHP)
+								</div>
+							</a>
+						</div>
+						<div class="section-action-container">
+							<div id="error_message_twitch_php" class="error-message">
+								<?php if ( isset( $twitchLogin['status'] ) && 'fail' == $twitchLogin['status'] ) : ?>
+									<div>
+										<?php echo $twitchLogin['message']; ?>	
+									</div>
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="section-action-container">
+							<a href="<?php echo $twitchLoginUrl; ?>" class="a-twitch">
+								<div class="twitch-button-container">
+									Login with Twitch (PHP)
 								</div>
 							</a>
 						</div>
