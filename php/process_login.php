@@ -41,6 +41,9 @@
 			updateRow( 'users', 'twitch_refresh_token', $_SESSION['twitch_user_info']['refresh_token'], $userInfo['id'] );
 		}
 
+		// get updated info
+		$userInfo = getUserWithEmailAddress( trim( $_POST['email'] ) );
+
  		// save info to php session
 		$_SESSION['is_logged_in'] = true;
 		$_SESSION['user_info'] = $userInfo;

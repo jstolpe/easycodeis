@@ -1,6 +1,14 @@
 <?php
 	// load up global things
 	include_once 'autoloader.php';
+
+	if ( !isLoggedIn() ) { // if user is not logged in they cannot see this page
+		header( 'location: index.php' );
+	}
+
+	if ( !empty( $_SESSION['user_info']['fb_access_token'] ) ) { // get users facebook info is we have an access token
+		$fbUserInfo = getFacebookUserInfo( $_SESSION['user_info']['fb_access_token'] );
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,6 +52,32 @@
 				$( '.form-input' ).keyup( function( e ) {
 					if ( e.keyCode == 13 ) { // our enter key
 						processMyAccount();
+					}
+				} );
+
+				$( '.a-fb' ).on( 'click', function() { 
+					loader.showLoader();
+
+					$.ajax( { 
+						url: 'php/process_logout.php',
+						type: 'post',
+						dataType: 'json',
+						success: function( data ) {
+							loader.hideLoader();
+							window.location.href = 'index.php';
+						}
+					} );
+				} );
+
+				$( '.show-hide' ).on( 'click', function() { 
+					var showHideSection = $( this ).data( 'section' );
+
+					if ( $( '#' + showHideSection ).is( ':visible' ) ) {
+						$( this ).html( 'show' );
+						$( '#' + showHideSection ).hide();
+					} else {
+						$( this ).html( 'hide' );
+						$( '#' + showHideSection ).show();
 					}
 				} );
 			} );
@@ -121,6 +155,65 @@
 								<div>Update</div>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="site-content-container">
+			<div class="site-content-centered">
+				<div class="site-content-section">
+					<div class="site-content-section-inner">
+						<div class="section-heading">Connected Facebook Account</div>
+						<?php if ( empty( $fbUserInfo ) || $fbUserInfo['has_errors'] ) : // could not get facebook user info ?>
+							<div class="a-fb">
+								<div class="fb-button-container">
+									<div>Login With Facebook to Connect Facebook Account</div>
+								</div>
+							</div>
+						<?php else : // display facebook user info ?> 
+							<div>
+								<div class="pro-img-cont">
+									<img class="pro-img" src="<?php echo $fbUserInfo['fb_response']['picture']['data']['url']; ?>" />
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									Email
+								</div>
+								<div>
+									<?php echo $fbUserInfo['fb_response']['email']; ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									First Name
+								</div>
+								<div>
+									<?php echo $fbUserInfo['fb_response']['first_name']; ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									Last Name
+								</div>
+								<div>
+									<?php echo $fbUserInfo['fb_response']['last_name']; ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									User Info Raw FB Response
+								</div>
+								<div>
+									<div class="a-default show-hide" data-section="fb_user_info">
+										show
+									</div>
+									<div id="fb_user_info" class="show-hide-section">
+										<textarea class="show-hide-textarea"><?php print_r( $fbUserInfo['fb_response'] ); ?></textarea>
+									</div>
+								</div>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

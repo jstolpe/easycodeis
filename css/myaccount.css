@@ -76,6 +76,25 @@ input {
 	border: 1px solid #ff0000;
 }
 
+.pro-img-cont {
+	text-align: center;
+}
+
+.pro-img {
+	border-radius: 50%;
+}
+
+.show-hide-section {
+	display: none;
+}
+
+.show-hide-textarea {
+	width: 100%;
+	height: 410px;
+	border: 1px solid #dedede;
+	border-radius: 5px;
+}
+
 @media screen and ( min-width: 800px ) { /* desktop */
 	.site-content-container {
 		width: 800px;
@@ -83,7 +102,6 @@ input {
 	}
 
 	.site-content-centered {
-		width: 50%;
 		margin: 0 auto;
 	}
 

@@ -19,6 +19,9 @@ body {
 
 .a-fb {
 	text-decoration: none;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .a-tw {
