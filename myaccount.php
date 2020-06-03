@@ -8,6 +8,7 @@
 
 	if ( !empty( $_SESSION['user_info']['fb_access_token'] ) ) { // get users facebook info is we have an access token
 		$fbUserInfo = getFacebookUserInfo( $_SESSION['user_info']['fb_access_token'] );
+		$fbDebugTokenInfo = getDebugAccessTokenInfo( $_SESSION['user_info']['fb_access_token'] );
 	}
 ?>
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
 					}
 				} );
 
-				$( '.a-fb' ).on( 'click', function() { 
+				$( '.a-fb' ).on( 'click', function() { // on click for logout
 					loader.showLoader();
 
 					$.ajax( { 
@@ -69,14 +70,21 @@
 					} );
 				} );
 
-				$( '.show-hide' ).on( 'click', function() { 
+				$( '.show-hide' ).on( 'click', function() { // on click for show hide section
+					// get section we are showing/hiding
 					var showHideSection = $( this ).data( 'section' );
 
-					if ( $( '#' + showHideSection ).is( ':visible' ) ) {
+					if ( $( '#' + showHideSection ).is( ':visible' ) ) { // section is currently visible
+						// change text to show
 						$( this ).html( 'show' );
+
+						// hide section
 						$( '#' + showHideSection ).hide();
-					} else {
+					} else { // section is currently hidden
+						// changet text to hide
 						$( this ).html( 'hide' );
+
+						// show section
 						$( '#' + showHideSection ).show();
 					}
 				} );
@@ -202,6 +210,38 @@
 							</div>
 							<div class="section-mid-container">
 								<div class="section-label">
+									User Access Token Facebook Application
+								</div>
+								<div>
+									<?php echo $fbDebugTokenInfo['fb_response']['data']['application']; ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									User Access Token Issued
+								</div>
+								<div>
+									<?php echo date( 'm-d-Y h:i:s', $fbDebugTokenInfo['fb_response']['data']['issued_at'] ); ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									User Access Token Expires
+								</div>
+								<div>
+									<?php echo date( 'm-d-Y h:i:s', $fbDebugTokenInfo['fb_response']['data']['expires_at'] ); ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									User Access Token Scope
+								</div>
+								<div>
+									<?php echo implode( ',', $fbDebugTokenInfo['fb_response']['data']['scopes'] ); ?>
+								</div>
+							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
 									User Info Raw FB Response
 								</div>
 								<div>
@@ -213,10 +253,26 @@
 									</div>
 								</div>
 							</div>
+							<div class="section-mid-container">
+								<div class="section-label">
+									User Access Token Debug Info Raw FB Response
+								</div>
+								<div>
+									<div class="a-default show-hide" data-section="fb_user_access_token_debug">
+										show
+									</div>
+									<div id="fb_user_access_token_debug" class="show-hide-section">
+										<textarea class="show-hide-textarea"><?php print_r( $fbDebugTokenInfo['fb_response'] ); ?></textarea>
+									</div>
+								</div>
+							</div>
 						<?php endif; ?>
 					</div>
 				</div>
 			</div>
 		</div>
+		<br />
+		<br />
+		<br />
 	</body>
 </html>

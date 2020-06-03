@@ -175,3 +175,25 @@
 			'message' => $message,
 		);
 	}
+
+	/**
+	 * Get debug info on an access token
+	 *
+	 * Endpoint https://graph.facebook.com/debug_token?input_token={access-token}&access_token={access-token}
+	 *
+	 * @param string $accessToken
+	 *
+	 * @return array $response
+	 */
+	function getDebugAccessTokenInfo( $accessToken ) {
+		// endpoint for getting debug info
+		$endpoint = FB_GRAPH_DOMAIN . 'debug_token';
+
+		$params = array( // params for the endpoint
+			'input_token' => $accessToken,
+			'access_token' => $accessToken
+		);
+
+		// make the api call
+		return makeFacebookApiCall( $endpoint, $params );
+	}
