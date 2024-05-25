@@ -16,29 +16,29 @@
 		$message = '';
 
 		if ( isset( $_SESSION['fb_user_info']['id'] ) ) { // if we have facebook id save it
-			updateRow( 'users', 'fb_user_id', $_SESSION['fb_user_info']['id'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'fb_user_id', $_SESSION['fb_user_info']['id'], $userInfo['id'] );
 		}
 
 		if ( isset( $_SESSION['fb_access_token'] ) ) { // if we have an access token save it
-			updateRow( 'users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfo['id'] );
 		}
 
 		if ( isset( $_SESSION['oauth_token'] ) ) { // if we have an access token save it
-			updateRow( 'users', 'oauth_token', $_SESSION['oauth_token'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'oauth_token', $_SESSION['oauth_token'], $userInfo['id'] );
 		}
 
 		if ( isset( $_SESSION['oauth_token_secret'] ) ) { // if we have an access token secret save it
-			updateRow( 'users', 'oauth_token_secret', $_SESSION['oauth_token_secret'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'oauth_token_secret', $_SESSION['oauth_token_secret'], $userInfo['id'] );
 		}
 
 		if ( isset( $_SESSION['tw_user_info']['id'] ) ) { // if we have an twitter user id save it
-			updateRow( 'users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userInfo['id'] );
 		}
 
 		if ( isset( $_SESSION['twitch_user_info'] ) ) { // if we have an twitch info save it
-			updateRow( 'users', 'twitch_user_id', $_SESSION['twitch_user_info']['id'], $userInfo['id'] );
-			updateRow( 'users', 'twitch_access_token', $_SESSION['twitch_user_info']['access_token'], $userInfo['id'] );
-			updateRow( 'users', 'twitch_refresh_token', $_SESSION['twitch_user_info']['refresh_token'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'twitch_user_id', $_SESSION['twitch_user_info']['id'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'twitch_access_token', $_SESSION['twitch_user_info']['access_token'], $userInfo['id'] );
+			updateRow( 'easycodeis_users', 'twitch_refresh_token', $_SESSION['twitch_user_info']['refresh_token'], $userInfo['id'] );
 		}
 
 		// get updated info

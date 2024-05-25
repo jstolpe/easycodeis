@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 28, 2020 at 04:15 AM
+-- Generation Time: May 25, 2024 at 02:52 PM
 -- Server version: 5.7.24
--- PHP Version: 7.2.14
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,11 +27,11 @@ USE `easycodeis`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `easycodeis_users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `easycodeis_users`;
+CREATE TABLE IF NOT EXISTS `easycodeis_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `first_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,

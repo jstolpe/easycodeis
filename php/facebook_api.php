@@ -139,15 +139,15 @@
 					$_SESSION['fb_user_info'] = $fbUserInfo['fb_response'];
 
 					// check for user with facebook id
-					$userInfoWithId = getRowWithValue( 'users', 'fb_user_id', $fbUserInfo['fb_response']['id'] );
+					$userInfoWithId = getRowWithValue( 'easycodeis_users', 'fb_user_id', $fbUserInfo['fb_response']['id'] );
 
 					// check for user with email
-					$userInfoWithEmail = getRowWithValue( 'users', 'email', $fbUserInfo['fb_response']['email'] );
+					$userInfoWithEmail = getRowWithValue( 'easycodeis_users', 'email', $fbUserInfo['fb_response']['email'] );
 
 					if ( $userInfoWithId || ( $userInfoWithEmail && !$userInfoWithEmail['password'] ) ) { // user has logged in with facebook before so we found them
 						// update user
-						updateRow( 'users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfoWithId['id'] );
-						$userInfo = getRowWithValue( 'users', 'id', $userInfoWithId['id'] );
+						updateRow( 'easycodeis_users', 'fb_access_token', $_SESSION['fb_access_token'], $userInfoWithId['id'] );
+						$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userInfoWithId['id'] );
 
 						// save info to php session so they are logged in
 						$_SESSION['is_logged_in'] = true;
@@ -158,7 +158,7 @@
 						// sign user up
 						$fbUserInfo['fb_response']['fb_access_token'] = $_SESSION['fb_access_token'];
 						$userId = signUserUp( $fbUserInfo['fb_response'] );
-						$userInfo = getRowWithValue( 'users', 'id', $userId );
+						$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userId );
 
 						// save info to php session so they are logged in
 						$_SESSION['is_logged_in'] = true;

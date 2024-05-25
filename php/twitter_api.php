@@ -405,22 +405,22 @@
 					$_SESSION['tw_user_info'] = $twitterUserInfo['api_data'];
 
 					// check for user with twitter id
-					$userInfoWithId = getRowWithValue( 'users', 'tw_user_id', $twitterUserInfo['api_data']['id'] );
+					$userInfoWithId = getRowWithValue( 'easycodeis_users', 'tw_user_id', $twitterUserInfo['api_data']['id'] );
 
 					// check for user with twitter eemail
-					$userInfoWithEmail = getRowWithValue( 'users', 'email', $twitterUserInfo['api_data']['email'] );
+					$userInfoWithEmail = getRowWithValue( 'easycodeis_users', 'email', $twitterUserInfo['api_data']['email'] );
 
 					if ( $userInfoWithId || ( $userInfoWithEmail && !$userInfoWithEmail['password'] ) ) { // user was found by email/id log them in
 						// get user id
 						$userId = $userInfoWithId ? $userInfoWithId['id'] : $userInfoWithEmail['id'];
 
 						// save twitter id and token to our database
-						updateRow( 'users', 'oauth_token', $_SESSION['oauth_token'], $userId );
-						updateRow( 'users', 'oauth_token_secret', $_SESSION['oauth_token_secret'], $userId );
-						updateRow( 'users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userId );
+						updateRow( 'easycodeis_users', 'oauth_token', $_SESSION['oauth_token'], $userId );
+						updateRow( 'easycodeis_users', 'oauth_token_secret', $_SESSION['oauth_token_secret'], $userId );
+						updateRow( 'easycodeis_users', 'tw_user_id', $_SESSION['tw_user_info']['id'], $userId );
 
 						// get user info
-						$userInfo = getRowWithValue( 'users', 'id', $userId );
+						$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userId );
 
 						// update session so the user is logged in
 						$_SESSION['is_logged_in'] = true;
@@ -447,7 +447,7 @@
 						$userId = signUserUp( $signupUserInfo );
 
 						// get user info
-						$userInfo = getRowWithValue( 'users', 'id', $userId );
+						$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userId );
 
 						// update session so the user is logged in
 						$_SESSION['is_logged_in'] = true;

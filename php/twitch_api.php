@@ -138,22 +138,22 @@
 			$_SESSION['eci_login_required_to_connect_twitch'] = false;
 		
 			// check for user with twitch id
-			$userInfoWithId = getRowWithValue( 'users', 'twitch_user_id', $apiUserInfo['id'] );
+			$userInfoWithId = getRowWithValue( 'easycodeis_users', 'twitch_user_id', $apiUserInfo['id'] );
 
 			// check for user with email
-			$userInfoWithEmail = getRowWithValue( 'users', 'email', $apiUserInfo['email'] );
+			$userInfoWithEmail = getRowWithValue( 'easycodeis_users', 'email', $apiUserInfo['email'] );
 		
 			if ( $userInfoWithId || ( $userInfoWithEmail && !$userInfoWithEmail['password'] ) ) { // user was found by email/id log them in
 				// get user id
 				$userId = $userInfoWithId ? $userInfoWithId['id'] : $userInfoWithEmail['id'];
 
 				// save twitch id and tokens to the user
-				updateRow( 'users', 'twitch_user_id', $apiUserInfo['id'], $userId );
-				updateRow( 'users', 'twitch_access_token', $this->_accessToken, $userId );
-				updateRow( 'users', 'twitch_refresh_token', $this->_refreshToken, $userId );
+				updateRow( 'easycodeis_users', 'twitch_user_id', $apiUserInfo['id'], $userId );
+				updateRow( 'easycodeis_users', 'twitch_access_token', $this->_accessToken, $userId );
+				updateRow( 'easycodeis_users', 'twitch_refresh_token', $this->_refreshToken, $userId );
 
 				// get user info
-				$userInfo = getRowWithValue( 'users', 'id', $userId );
+				$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userId );
 
 				// update session so the user is logged in
 				$_SESSION['is_logged_in'] = true;
@@ -174,7 +174,7 @@
 				$userId = signUserUp( $signupUserInfo );
 
 				// get user info
-				$userInfo = getRowWithValue( 'users', 'id', $userId );
+				$userInfo = getRowWithValue( 'easycodeis_users', 'id', $userId );
 
 				// update session so the user is logged in
 				$_SESSION['is_logged_in'] = true;

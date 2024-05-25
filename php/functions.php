@@ -29,7 +29,7 @@
 		// create our sql statment adding in password only if change password was checked
 		$statement = $databaseConnection->prepare( '
 			UPDATE
-				users
+				easycodeis_users
 			SET
 				email = :email,
 				first_name = :first_name,
@@ -106,7 +106,7 @@
 			SELECT
 				*
 			FROM
-				users
+				easycodeis_users
 			WHERE
 				email = :email
 		' );
@@ -170,7 +170,7 @@
 		// create our sql statment
 		$statement = $databaseConnection->prepare( '
 			INSERT INTO
-				users (
+				easycodeis_users (
 					email,
 					first_name,
 					last_name,
